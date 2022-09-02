@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row bg-body-light rounded">
+        <div class="container-fluid  shadow-sm">
+            <div class="row mt-1 mb-1">
+                <div class="tags-scroll-wrapper text-center">
+                    <!--start tag-->
+                    {% for obj in objects %}
+                    {% for tag in obj.tags.all %}
+                    <div class="tag-badge">
+                        <a href="#" class="text-dark text-decoration-none">{{tag.name}}</a>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}                 
+                    <!-- end tag -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="w-100">
+            <form action="#" class="w-100">
+                <div class="input-group">
+                    <button type="submit" class="input-group-text search-btn border border-0">
+                        <em class="bi bi-search" style="cursor: pointer;"></em>
+                    </button>
+                    <input type="text" name="q" class="form-control border border-0" placeholder="Search ...">
+                </div>   
+            </form>
+        </div>
+    </div>
+
+    <!-- start articles -->
+    {% if objects %}
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        {% for obj in objects %}
+            {% include 'tutorials/includes/tutorial_obj.html' %}
+        {% endfor %}
+    </div>
+    <!-- end articles -->
+    <div class="row mt-3">
+        {% include 'tutorials/includes/pagination.html' %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

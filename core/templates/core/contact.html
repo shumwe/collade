@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <h3 class="fw-bold text-center"> Contact Us </h3>     
+        <hr class="mb-5">
+        <div class="text-center mb-4">
+            Do you have any suggestions or comments ? Please send them to us through this page.
+        </div> 
+        <div class="col-sm-8">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        {{form.name|as_crispy_field}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form.email|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{form.subject|as_crispy_field}}
+                </div>
+                <div class="mb-3">
+                    {{form.message|as_crispy_field}}
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
