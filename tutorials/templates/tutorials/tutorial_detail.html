@@ -63,7 +63,9 @@
             <div class="row bg-body-light">
                 <h5 class="fw-bold text-faily"> Author Details </h5>
                 <div class="col-sm-12 mt-2 d-flex justify-content-center">
-                    <img class="rounded-circle" src="{{obj.author.avatar.url}}" 
+                    <img class="rounded-circle" 
+                    src="{% if obj.author.avatar %}{{obj.author.avatar.url}}
+                    {% else %}{% static 'img/default_avatar.jpg' %}{% endif %}"
                     width="150" height="150" alt="{{obj.author.username}}-avatar">
                 </div>
                 <h6 class="text-center fw-bold mb-1 mt-1">@{{obj.author.username}}</h6>
