@@ -29,12 +29,17 @@ jobs:
             python3 manage.py test
 
       - run:
-          name: hodolint test
+          name: install hodolint
           command: |
             source venv/bin/activate
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 && \
             chmod +x /bin/hadolint
+      - run:
+          name: Run lint
+          command: |
+            source venv/bin/activate
             make lint
+            
       - store_artifacts:
           path: test-reports
           destination: python_app
