@@ -43,3 +43,26 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: python_app
+
+  dockerize:
+    docker:
+      - image: circleci/python:3.10
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: "19.03.13"
+      - run:
+          name: Build and push docker image
+          command: |
+            docker build -t $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
+            echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
+            docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
+
+workflows:
+  version: 2
+  collade-workflow:
+    jobs:
+      - build
+      - dockerize:
+          requires:
+            - build
