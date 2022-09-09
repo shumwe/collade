@@ -5,6 +5,9 @@ if [ -e "$file" ]; then
     rm $file
 fi
 
+echo "SECRET_KEY='TemporarySEcrtetKey3rb%&TGDW&E*#(**(EHU#(*E'" > .env
+echo "app_env='prod'" >> .env
+
 user=admin
 email=admin@mail.com
 password=Admin123_#
