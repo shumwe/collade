@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, ListView
 from django.core.exceptions import ObjectDoesNotExist
-
+from taggit.models import Tag
 from tutorials.models import Favourite, Tutorial
 
 
@@ -44,3 +44,24 @@ def favourite_tutorials(request, slug):
         messages.success(request, 'Added to favourites!')
         
     return redirect(tutorial.get_absolute_url())
+
+class TutorialSearchView(ListView):
+    model = Tutorial
+    template_name = "tutorials/search.html"
+    context_object_name = 'objects'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        objects = Tutorial.objects.filter(
+                title__icontains=query, publish=True
+            ).order_by('-created')
+        return objects
+    
+def tagged(request, tag_slug):
+    tag = Tag.objects.get(slug=tag_slug)
+    objects = Tutorial.objects.filter(
+        tags=tag, publish=True
+    )
+    return render(request, 'tutorials/tagged.html', context={
+        'tag':tag, "objects":objects
+    })

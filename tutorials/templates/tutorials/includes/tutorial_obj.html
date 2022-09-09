@@ -12,7 +12,7 @@
             </h5>
             {% for tag in obj.tags.all %}
             <span class="tag-badge">
-                <a href="#" class="text-dark text-decoration-none">{{tag.name}}</a>
+                <a href="{% url 'tagged' tag.slug %}" class="text-dark text-decoration-none">{{tag.name}}</a>
             </span>
             {% endfor %}
         </div>

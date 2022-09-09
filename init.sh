@@ -5,9 +5,9 @@ if [ -e "$file" ]; then
     rm $file
 fi
 
-user=bravin
-email=admin_bravin@mail.com
-password=Bravin123#
+user=admin
+email=admin@mail.com
+password=Admin123_#
 
 python manage.py migrate
 
