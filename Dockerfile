@@ -11,4 +11,6 @@ RUN pip install -r requirements.txt
 COPY . /code/
 RUN sh init.sh
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 8000
+
+CMD ["python", "-m", "uvicorn", "collade.asgi:application", "--host", "0.0.0.0", "--port", "8000"]

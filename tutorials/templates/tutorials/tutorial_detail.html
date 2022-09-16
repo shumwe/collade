@@ -8,7 +8,7 @@
 <div class="container-fluid bg-body-light p-3">
     <div class="row">
         <div class="col-sm-9 d-flex justify-content-start">
-            <h5 class="ms-3 fw-bold"> {{obj.title}} </h5>
+            <h5 class="ms-3 fw-bold text-light"> {{obj.title}} </h5>
             {% if user.is_authenticated %}
             <div class="col d-flex justify-content-end">
                 {% if is_fav %}
@@ -44,18 +44,16 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container">
     <div class="row mt-3">
         <div class="col-sm-9">
             <hr>
-            <div class="text-center">
-                {% for tag in obj.tags.all %}
-                <div class="tag-badge">
-                    <a href="#" class="text-dark text-decoration-none">{{tag.name}}</a>
-                </div>
-                {% endfor %}
+            {% for tag in obj.tags.all %}
+            <div class="tag-badge">
+                <a href="{% url 'tagged' tag.slug %}" class="text-dark text-decoration-none">{{tag.name}}</a>
             </div>
-            <div class="p-4 text-family">
+            {% endfor %}
+            <div class="p-4 text-family text-light">
                 {{obj.content|safe}}
             </div>
         </div>
