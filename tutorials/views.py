@@ -5,7 +5,8 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, ListView
 from django.core.exceptions import ObjectDoesNotExist
 from taggit.models import Tag
-from tutorials.models import Favourite, Tutorial
+from tutorials.models import Favourite, Tutorial, TutorialComments
+from tutorials.forms import CommentForm;
 
 
 class TutorialListView(ListView):
@@ -25,10 +26,27 @@ class TutorialDetailView(DetailView):
         context["related"] = Tutorial.objects.filter(
             publish=True, tags__in=obj.tags.all(),
         ).exclude(pk=obj.pk).order_by('-created')[:6]
+        context["comment_form"] = CommentForm()
+        context["comments"] = TutorialComments.objects.filter(parent_tutorial=obj)
         user = self.request.user
         if user.is_authenticated:
             context["is_fav"] = Favourite.objects.filter(user=user,fav_tutorial=obj).exists()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if self.request.method == 'POST':
+            comment_form = CommentForm(self.request.POST)
+            if comment_form.is_valid():
+                user = request.user
+                message = comment_form.cleaned_data['message']
+                try:
+                    parent = comment_form.cleaned_data["parent"]    
+                except:
+                    parent = None
+            new_comment = TutorialComments(
+                parent_tutorial = self.get_object(), user=user, message=message, parent=parent)
+            new_comment.save()
+            return redirect(self.request.path_info)
 
 @login_required
 def favourite_tutorials(request, slug):
