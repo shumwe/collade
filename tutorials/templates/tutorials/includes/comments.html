@@ -39,14 +39,14 @@
                     </div>
                     <p class="small mb-0">{{comment.message}}</p>
                     <!-- reply accordion -->
-                    <div class="accordion accordion-flush" id="accordionFlushReply">
+                    <div class="accordion accordion-flush mt-2" id="accordionFlushReply">
                         <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-heading{{comment.pk}}">
-                                <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{comment.pk}}" aria-expanded="false" aria-controls="flush-collapse-{{comment.pk}}">
+                                <button class="accordion-button collapsed text-light bg-body-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{comment.pk}}" aria-expanded="false" aria-controls="flush-collapse-{{comment.pk}}">
                                     <em class="bi bi-reply"> </em> &nbsp;&nbsp; reply
                                 </button>
                             </h3>
-                            <div id="flush-collapse-{{comment.pk}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{comment.pk}}" data-bs-parent="#accordionFlushReply">
+                            <div id="flush-collapse-{{comment.pk}}" class="accordion-collapse collapse bg-body-light" aria-labelledby="flush-heading{{comment.pk}}" data-bs-parent="#accordionFlushReply">
                                 <div class="accordion-body">
                                     {% if user.is_authenticated %}
                                     <form method="POST" id="main_form" class="comment_form">
@@ -84,7 +84,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-1">{{reply.user.username}} <span class="small"> - {{reply.created}}</span></p>
                     </div>
-                    <p class="mb-1">{{reply.user.username}}</p>
+                    <p class="mb-1">{{reply.message}}</p>
                 </div>
             </div>
             {% endfor %}
