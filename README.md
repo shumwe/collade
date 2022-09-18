@@ -13,7 +13,8 @@
 - Install and configure docker on your machine
 - Pull my docker image ```   docker pull shumwe/collade   ```
 - Run the image ```   docker run -d -p 8000:8000 collade:latest ```
-- Visit [Collade Homepage](127.0.0.1:8000)  OR [Collade Admin](127.0.0.1:8000/admin)
+- Visit [Collade Homepage](127.0.0.1:8000)  OR [Collade Admin](127.0.0.1:8000/admin) with => 
+username: admin , password: Admin123_#
 
 
 # Contributors

@@ -47,6 +47,29 @@ class Tutorial(TutorialAppBaseModel):
     class Meta:
         ordering = ['-created',]
         
+class TutorialComments(TutorialAppBaseModel):
+    parent_tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField(max_length=100)
+    display = models.BooleanField(default=True)
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
+    
+    @property
+    def children(self):
+        return TutorialComments.objects.filter(parent=self).reverse()
+    
+    @property
+    def is_parent(self):
+        if self.parent is None:
+            return True
+        return False
+    
+    def __str__(self):
+        return f"Comment by {self.user.username}"
+    
+    class Meta:
+        ordering = ['-created']
+        
 class Favourite(TutorialAppBaseModel):
     fav_tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourites')
