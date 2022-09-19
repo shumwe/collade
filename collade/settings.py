@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 APP_ENV = os.getenv("app_env")
 if APP_ENV == 'dev':
-    DEBUG = False
+    DEBUG = True
 elif APP_ENV == 'prod':
     DEBUG = False
     #CSRF_COOKIE_SECURE = True

@@ -49,7 +49,7 @@ class Tutorial(TutorialAppBaseModel):
         
 class TutorialComments(TutorialAppBaseModel):
     parent_tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="comments")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
     message = models.TextField(max_length=100)
     display = models.BooleanField(default=True)
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
@@ -69,6 +69,8 @@ class TutorialComments(TutorialAppBaseModel):
     
     class Meta:
         ordering = ['-created']
+        verbose_name = 'Comments'
+        verbose_name_plural = verbose_name
         
 class Favourite(TutorialAppBaseModel):
     fav_tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from tutorials.models import Favourite, Tutorial
-
+from tutorials.models import Favourite, Tutorial, TutorialComments
 
 @admin.register(Tutorial)
 class TutorialAdmin(admin.ModelAdmin):
@@ -10,3 +9,4 @@ class TutorialAdmin(admin.ModelAdmin):
     search_fields = ['title', 'author', 'tags']
     
 admin.site.register(Favourite)
+admin.site.register(TutorialComments)

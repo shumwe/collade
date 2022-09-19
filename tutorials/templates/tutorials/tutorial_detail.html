@@ -5,7 +5,7 @@
 
 {% endblock %}
 {% block content %}
-<div class="container-fluid bg-body-light p-3">
+<div class="container-fluid shadow bg-body-light p-3">
     <div class="row">
         <div class="col-sm-9 d-flex justify-content-start">
             <h5 class="ms-3 fw-bold text-light"> {{obj.title}} </h5>
@@ -48,21 +48,23 @@
     <div class="row mt-3">
         <div class="col-sm-9">
             <hr>
-            {% for tag in obj.tags.all %}
-            <div class="tag-badge">
-                <a href="{% url 'tagged' tag.slug %}" class="text-dark text-decoration-none">{{tag.name}}</a>
+            <div class="d-flex justify-content-center">
+                {% for tag in obj.tags.all %}
+                <div class="tag-badge">
+                    <a href="{% url 'tagged' tag.slug %}" class="text-dark text-decoration-none">{{tag.name}}</a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-            <div class="p-4 text-family text-light">
-                {{obj.content|safe}}
-            </div>
-            <div class="mt-3">
-                {% include 'tutorials/includes/comments.html' %}
-            </div>
+                <div class="p-4 text-family text-light">
+                    {{obj.content|safe}}
+                </div>
+                <div class="mt-3">
+                    {% include 'tutorials/includes/comments.html' %}
+                </div>
         </div>
         <div class="col-sm-3">
             <div class="row bg-body-light">
-                <h5 class="fw-bold text-faily"> Author Details </h5>
+                <h5 class="fw-bold text-faily text-center mt-2"> Author Details </h5>
                 <div class="col-sm-12 mt-2 d-flex justify-content-center">
                     <img class="rounded-circle" 
                     src="{% if obj.author.avatar %}{{obj.author.avatar.url}}
